@@ -3,11 +3,13 @@ package com.in.service;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Service
 public class EmployeeService {
 
 	// Circuit Breaker method
+	 @Retry(name = "sample-api", fallbackMethod = "fallbackMethod")
 	@CircuitBreaker(name = "sample-api", fallbackMethod = "fallbackMethod")
 	public String riskyApiCall() {
 		System.out.println("Calling risky external service...");
